@@ -56,9 +56,10 @@ namespace Rema1k.Controllers
             );
         }
 
-
-
         [HttpPut("{id}")]
+        //Updates a specific product and returns an HTTP status code in Postman etc.
+        //If an Id for a product that doesn't exist is used, you'll see the Bad Request error - 400
+        //If an Id for a product that was deleted just a moment ago is used, you'll see the Not FOund error - 404
         public async Task<IActionResult> PutProduct([FromRoute] int id, [FromBody] Product product)
         {
             if (id != product.Id)

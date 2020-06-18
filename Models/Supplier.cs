@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Rema1k.Models
@@ -24,7 +25,12 @@ namespace Rema1k.Models
 
         public int CategoryId { get; set; }
 
+        [JsonIgnore]
+        //Needed for the DbSet but not to be seen in the browser
         public virtual Category Category { get; set; }
+
+        [JsonIgnore]
+        //Needed for the DbSet but not to be seen in the browser
         public virtual List<Product> Products { get; set; }
     }
 }
