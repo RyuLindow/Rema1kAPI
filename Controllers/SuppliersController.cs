@@ -19,16 +19,19 @@ namespace Rema1k.Controllers
         {
             _context = context;
 
+            //Ensures that the data is seeded
             _context.Database.EnsureCreated();
         }
 
         [HttpGet]
+        //Retrieve all suppliers and returns them together with an HTTP status code in Postman etc. as an array
         public async Task<IActionResult> GetSuppliers()
         {
             return Ok(await _context.Suppliers.ToArrayAsync());
         }
 
         [HttpGet("{id:int}")]
+        //Retrieve a specific supplier and return it together with an HTTP status code in Postman etc.
         public async Task<IActionResult> GetSupplier(int id)
         {
             var supplier = await _context.Suppliers.FindAsync(id);
@@ -40,6 +43,7 @@ namespace Rema1k.Controllers
         }
 
         [HttpPost]
+        //Posts a supplier and returns and returns an HTTP status code in Postman etc.
         public async Task<ActionResult<Supplier>> PostSupplier([FromBody]Supplier supplier)
         {
             _context.Suppliers.Add(supplier);
@@ -53,6 +57,9 @@ namespace Rema1k.Controllers
         }
 
         [HttpPut("{id}")]
+        //Updates a specific supplier and returns an HTTP status code in Postman etc.
+        //If an Id for a supplier that doesn't exist is used, you'll see the Bad Request error - 400
+        //If an Id for a supplier that was deleted just a moment ago is used, you'll see the Not FOund error - 404
         public async Task<IActionResult> PutSupplier([FromRoute] int id, [FromBody] Supplier supplier)
         {
             if (id != supplier.Id)
@@ -80,6 +87,8 @@ namespace Rema1k.Controllers
         }
 
         [HttpDelete("{id}")]
+        //Deletes a specific supplier and returns an HTTP status code in Postman etc.
+        //If an Id for a supplier that was delete just a moment ago is used, you'll see the Not FOund error - 404
         public async Task<ActionResult<Supplier>> DeleteSupplier(int id)
         {
             var supplier = await _context.Suppliers.FindAsync(id);
