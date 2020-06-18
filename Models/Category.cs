@@ -15,5 +15,11 @@ namespace Rema1k.Models
 
         [MaxLength(255)]
         public string Description { get; set; }
+
+        public int SupplierId { get; set; }
+
+        public virtual List<Product> Products { get; set; }
+
+        public virtual List<Supplier> Suppliers { get; set; }
     }
 }
